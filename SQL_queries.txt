@@ -1,0 +1,58 @@
+Calculate the total sum of an order made by a certain customer
+
+SELECT SUM(unitPrice * quantity) AS Total
+FROM products
+INNER JOIN orders ON orders.customerID = '26'
+INNER JOIN orderdetails ON orderdetails.orderID = orders.id
+AND orderdetails.productID = products.id;
+
+
+
+Calculate the total sum of all the orders that have been created
+
+SELECT SUM(unitPrice * quantity) AS Total
+FROM products
+INNER JOIN orderdetails ON orderdetails.productID = products.id
+INNER JOIN orders ON orders.id = orderdetails.orderID;
+
+
+
+Find the customerName of every customer who has ordered more than 3 products
+
+SELECT DISTINCT customers.customerName 
+FROM customers, orders, orderdetails
+WHERE orders.customerID = customers.id AND orderdetails.orderID = orders.id
+GROUP BY orderdetails.orderID 
+HAVING COUNT(orderID) > 3;
+
+
+
+Orders which include a product of which there are less than 20 items in inventory
+
+SELECT orders.id, products.productName, products.inventory
+FROM products, orders, orderdetails
+WHERE orders.id = orderdetails.orderID AND products.id = orderdetails.productID
+GROUP BY orderdetails.productID
+HAVING inventory < 20;
+
+
+
+Which employee has sold the most units
+
+SELECT employeeName, MAX(orderdetails.quantity) AS SoldUnits
+FROM employees, orders, orderdetails
+WHERE employees.id = orders.employeeID AND orders.id = orderdetails.orderID;
+
+
+
+Which employee has sold the most in terms of money
+
+SELECT employeeName, SUM(unitPrice * quantity) AS TotalAmountSold
+FROM employees, orders, orderdetails, products
+WHERE employees.id = orders.employeeID AND orders.id = orderdetails.orderID
+AND orderdetails.productID = products.id;
+
+
+
+
+

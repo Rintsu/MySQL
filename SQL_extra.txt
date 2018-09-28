@@ -1,0 +1,34 @@
+﻿1. SELECT AVG(Quantity) FROM OrderDetails;
+
+2. SELECT MIN(Quantity) FROM OrderDetails;
+SELECT MAX(Quantity) FROM OrderDetails;
+
+3. SELECT MAX(Quantity) FROM OrderDetails
+WHERE Quantity < 100;
+
+4. SELECT COUNT(CustomerID) FROM Customers
+WHERE Country = 'Germany' OR 'France' OR 'UK' OR 'Austria' OR 'Spain';
+
+5. SELECT COUNT(Orders.OrderID)
+FROM Orders, Shippers
+WHERE Orders.ShipperID = Shippers.ShipperID AND Shippers.ShipperName = 'Federal Shipping';
+
+6.SELECT COUNT(Products.ProductID) 
+FROM Categories, Products, Orders, OrderDetails
+WHERE Categories.CategoryName = 'Dairy Products' AND Categories.CategoryID = Products.CategoryID AND OrderDetails.ProductID = Products.ProductID AND OrderDetails.OrderID = Orders.OrderID;
+
+7. SELECT Products.ProductName, Products.Price
+FROM Products, OrderDetails
+WHERE OrderDetails.Quantity >= 100 AND OrderDetails.ProductID = Products.ProductID;
+
+8. SELECT DISTINCT Employees.LastName, Employees.FirstName, Employees.Notes
+FROM Employees, Orders, OrderDetails
+WHERE OrderDetails.Quantity > 50 AND Employees.EmployeeID = Orders.EmployeeID AND Orders.OrderID = OrderDetails.OrderID;
+
+9. SELECT Orders.OrderID
+FROM Products, Orders, OrderDetails
+WHERE Products.ProductName = 'Lakkalikööri' AND Products.ProductID = OrderDetails.ProductID AND OrderDetails.OrderID = Orders.OrderID;
+
+10. SELECT Customers.CustomerName
+FROM Customers, Products, Orders, OrderDetails
+WHERE Products.ProductName = 'Lakkalikööri' AND Products.ProductID = OrderDetails.ProductID AND OrderDetails.OrderID = Orders.OrderID AND Orders.CustomerID = Customers.CustomerID;
